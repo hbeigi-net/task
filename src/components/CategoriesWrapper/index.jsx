@@ -12,8 +12,11 @@ export default function CategoriesWrapper({ title, items, actionTitle, submit })
     }
 
     const deSelectItem = item => {
-        if (Array.isArray(item)) return item.forEach(elem => deSelectItem(elem))
-        setSelected(items.filter(elem => elem.uniqueId !== items.uniqueId))
+
+        if (Array.isArray(item)) {
+            return setSelected(selected.filter(elem => !item.includes(elem)))
+        }
+        setSelected(selected.filter(elem => elem.uniqueId !== item.uniqueId))
     }
 
     const actionHanlder = () => {

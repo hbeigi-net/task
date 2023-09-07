@@ -15,7 +15,7 @@ export default function Category({ title, items, selected, selectItem, deSelectI
 
     const stopPropagation = e => e.stopPropagation()
     const isChecked = items.every(item => selected.includes(item))
-    const handleChange = (e, items) => {
+    const handleChange = e => {
         stopPropagation(e)
         if (isChecked) return deSelectItem(items)
         selectItem(items)
@@ -31,7 +31,7 @@ export default function Category({ title, items, selected, selectItem, deSelectI
                             type='checkbox'
                             checked={isChecked}
                             onClick={stopPropagation}
-                            onChange={e => handleChange(e, items)}
+                            onChange={handleChange}
                         />
                     </span>
                     <Chevron width={30} height={30} className={`${classes.chevron} ${!isOpen && classes.chevronOpen}`} />
@@ -46,7 +46,8 @@ export default function Category({ title, items, selected, selectItem, deSelectI
                         >
                             <CategoryItem
                                 data={item}
-                                onChange={e => handleChange(e, item)}
+                                deSelectItem={deSelectItem}
+                                selectItem={selectItem}
                                 isChecked={selected.includes(item)}
                             />
                         </div>
